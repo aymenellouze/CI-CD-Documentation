@@ -103,3 +103,5 @@ tous ces etape will be auto
    53  sudo docker-compose up -d
    54  sudo docker ps
    **se3a tayahna contenaire ou tala3neh
+   ou tawika taada 
+   ** tawika halina jenkins ay haja thotha fil pipline hiya khater mbaad twali automatique par example if and ..
