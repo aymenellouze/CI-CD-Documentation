@@ -23,22 +23,16 @@ services:
     volumes:
       - /var/lib/docker
     restart: always
-          
-volumes:
-  jenkins-data: {}
-  jenkins-home: {}
-
-
 
   sonarqube:
     image: sonarqube:8.9-community
     container_name: sonarqube
+    user: root
     ports:
       - "9000:9000"
     environment:
       - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
-    networks:
-      - sonarnet
+
     depends_on:
       - db
     
@@ -48,20 +42,20 @@ volumes:
     environment:
       - POSTGRES_USER=sonar
       - POSTGRES_PASSWORD=sonar
-    networks:
-      - sonarnet
     
-networks:
-  sonarnet:
-nexus:
+  nexus:
     image: sonatype/nexus3:latest
     container_name: nexus
+    user: root
     ports:
       - "8081:8081"
     volumes:
-      - ./nexus-data:/nexus-data
-    environment:
-      - NEXUS_SECURITY_RANDOMPASSWORD=false
+      - nexus-data:/nexus-data
+
     
    
 
+volumes:
+  jenkins-data: {}
+  jenkins-home: {}
+  nexus-data: {}
