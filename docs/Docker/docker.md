@@ -1,57 +1,105 @@
----
-sidebar_position: 1
----
-
-# Docker Tutorial
-## Introduction
-* Docker is an open platform for developing, shipping, and running applications. Docker enables you to separate your applications from your infrastructure so you can deliver software quickly. With Docker, you can manage your infrastructure in the same ways you manage your applications. By taking advantage of Docker's methodologies for shipping, testing, and deploying code, you can significantly reduce the delay between writing code and running it in production.
-
 ## Dockerfile
 
-* Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image.
-
-### Dockerfile for nodejs application 
-```
-FROM node:20.5.1-alpine3.18    <!-- A Dockerfile must begin with a FROM instruction.The FROM instruction specifies the Parent Image from which you are building. -->
-WORKDIR /app             <!-- create a folder -->
-COPY package*.json  .   <!-- copy application dependencies -->
-RUN npm install          <!-- install dependencies -->
-COPY . .                      <!-- copy app code -->
-EXPOSE 3000                    <!-- open port number 3000 -->
-CMD ["npm","start"]              <!-- run the app -->
-```
+ Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image.
 
 
-### Dockerfile for nodejs application with optimzed image & multistage 
 
-```
+# create dockerfile 
+fill it with this at first :
 
-FROM node:20.5.1 as build                    <!-- build is the name of the stage -->
+
+FROM node:20.5.1-alpine3.18 as dev
 WORKDIR /app
 COPY package*.json  .
 RUN npm install
 COPY . .
-RUN npm run build                             <!-- build the artifact -->
+EXPOSE 3000
+CMD ["npm","start"] 
 
-FROM nginx:stable-alpine as prod              <!-- nginx is a used as a server web to run app   -->
-WORKDIR /user/share/nginx/html
-COPY --from=build /app/build .
+# run the Image
 
-```
+'''
+sudo docker build -t sardina .
+'''
+# sardina refers to the image name and can be any name
+
+# Now to optimize the images we go to this code
+
+FROM node:20.5.1-alpine3.18 as dev
+WORKDIR /app
+COPY package*.json  .
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm","start"] 
+
+FROM node:20.5.1 as build
+WORKDIR /app
+COPY package*.json  .
+RUN npm install
+COPY . .
+RUN npm run build 
 
 
-## Docker command 
-
-List of runinng container 
-
-```
-docker ps    
-```
-
-List of containers 
-
-```
-docker ps  -adocker-  
-```
+FROM nginx:stable-alpine as prod
+WORKDIR /usr/share/nginx/html
+COPY --from=build  /app/build  .
 
 
+# For the command is the same as earlier however change the name ofc 
+
+'''
+sudo docker build -t wrata .
+'''
+
+# show the existing container
+
+please note that once running the previous command will automatically create its own container.
+
+'''
+sudo docker ps
+'''
+
+# remove the existing container 
+in order to build again we need to remove the older conatiner
+
+'''
+sudo docker container prune
+'''
+
+# Running the image on web
+
+to run the docker image inside the web we need to run it while giving it a port as well as mentioning the container port, the new name of the docker and then the name of the image
+
+'''
+sudo docker run -p 8090:80 -d --name prod sardina
+'''
+
+# add jenkins docker-compose 
+we need to create a new file called "docker-compose.yml"
+
+jenkins pipeline
+manuel steps 
+-
+-
+tous ces etape will be auto
+
+
+   36  sudo apt install docker-compose
+   37  sudo docker-compose up
+   38  cd docker_compose/
+   39  sudo docker-compose up
+   40  sudo docker ps
+   41  sudo docker ps -a
+   42  sudo docker-compose up
+
+   b3405341d8394480a4739ef168526a25 pass jenkins
+   
+   48  sudo docker ps
+   49  sudo docker stop ecc
+   50  sudo docker ps
+   51  sudo docker-compose down
+   52  sudo docker container prune
+   53  sudo docker-compose up -d
+   54  sudo docker ps
+   **se3a tayahna contenaire ou tala3neh
