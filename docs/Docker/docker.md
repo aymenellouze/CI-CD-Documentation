@@ -107,3 +107,27 @@ tous ces etape will be auto
    ** tawika halina jenkins ay haja thotha fil pipline hiya khater mbaad twali automatique par example if and ..
    nexus nkhaliw fiha el image 
    sonar qube yamel tous les test
+
+# Cette commande installe Docker Compose sur votre système
+sudo apt install docker-compose
+# Cette commande démarre tous les services définis dans votre fichier de configuration Docker Compose. Il semble que vous l'ayez exécutée deux fois
+sudo docker-compose up
+# Cette commande change votre répertoire de travail actuel en "docker_compose/".
+cd docker_compose/
+# Cette commande affiche les conteneurs Docker en cours d'exécution
+sudo docker ps: .
+# Cette commande affiche tous les conteneurs Docker, qu'ils soient en cours d'exécution ou arrêtés.
+sudo docker ps -a
+# Cette commande arrête un conteneur Docker nommé "ecc"
+sudo docker stop ecc
+'''
+sudo docker-compose down: 
+'''
+# Cette commande supprime tous les conteneurs Docker arrêtés.
+'''
+sudo docker container prune: 
+'''
+# Cette commande démarre tous les services Docker Compose en arrière-plan (détaché).
+'''
+sudo docker-compose up -d: 
+'''
