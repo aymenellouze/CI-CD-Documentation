@@ -131,3 +131,58 @@ sudo docker container prune:
 '''
 sudo docker-compose up -d: 
 '''
+  279  sudo docker-compose down
+  280  sudo docker-compose up -d
+  281  cd docker_compose/
+  282  sudo docker-compose down
+  283  sudo docker-compose up -d
+  284  sudo docker ps//bech naraw container
+  285  sudo docker networks ls /bech naraw networks
+  286  sudo docker network ls
+  296  sudo docker stop 59 82 8a 67 1d /bech twa9ef el container
+  308  sudo docker exec -it jenkinsserver bash
+  309  sudo docker network ls
+  310  docker ps --format '{{ .ID }} {{ .Names }} {{ json .Networks }}'/bech tatina esem network eli alih 
+  319  sudo docker ps
+  320  sudo docker exec e1 bash 
+  321  sudo docker logs
+  322  sudo docker log
+  323  sudo docker logs e1
+  324  sudo docker logs e1 | grep 64
+  325  sudo docker logs e1 | grep vm
+  326  sudo sysctl -w vm.max_map_count=262144
+  327  sudo docker restart sonarqube
+  328  sudo docker ps
+  329  sudo docker logs sonarqube
+  330  sudo docker ps
+  331  sudo docker-compose stop
+  332  sudo docker-compose up -d
+  333  sudo docker ps
+  334  sudo docker logs sonarqube 
+  335  sudo docker stop sonarqube 
+  336  sudo docker stop postgresql 
+  337  sudo docker container prune
+  338  sudo docker-compose up -d
+  339  sudo docker ps
+  340  sudo docker logs d3
+  341  sudo sysctl -w vm.max_map_count=262144
+  342  sudo docker-compose down
+  343  sudo docker-compose up -d
+  344  sudo docker ps
+  345  sudo docker-compose down
+  346  sudo docker-compose up -d
+  347  sudo docker-compose down
+  348  sudo docker ps -a
+  349  sudo docker-compose up -d
+  350  sudo docker logs sonarqube
+  351  sudo sysctl -w vm.max_map_count=262144
+  352  sudo docker logs sonarqube
+  353  sudo docker-compose down
+  354  sudo docker ps
+  355  sudo docker stop a3
+  356  sudo docker container prune
+  357  sudo docker network prune
+  358  sudo docker-compose up -d
+  359  sudo docker ps
+  360  sudo docker-compose up -d
+  361  history
