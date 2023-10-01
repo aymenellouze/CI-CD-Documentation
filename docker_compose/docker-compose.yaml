@@ -27,6 +27,16 @@ services:
     volumes:
       - /var/lib/docker
     restart: always
+  nexus:
+      image: sonatype/nexus3
+      container_name: nexus
+      user: root
+      ports:
+        - 8088:8081
+        - 8085:8085
+      volumes:
+        - /home/nexus:/nexus-data
+      restart: always
 
   sonarqube:
          image: sonarqube:community
