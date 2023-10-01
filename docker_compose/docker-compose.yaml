@@ -1,14 +1,15 @@
- # docker-compose.yaml
 version: '3.8'
 services:
   jenkins:
     image: jenkins/jenkins:jdk11
     privileged: true
     user: root
+    container_name: jenkinsserver
     ports:
       - 8080:8080
       - 50000:50000
-    container_name: jenkinsserver
+    networks:
+      - mynetwork
     volumes:
       - jenkins-data:/var/jenkins_home
       - jenkins-home:/home
@@ -16,59 +17,56 @@ services:
       - /usr/local/bin/docker:/usr/local/bin/docker
     depends_on:
       - docker
+
   docker:
     image: docker:dind
     container_name: docker
     privileged: true
+    networks:
+      - mynetwork
     volumes:
       - /var/lib/docker
     restart: always
 
   sonarqube:
-        image: sonarqube
-        restart: unless-stopped
-        container_name: sonarqube
-        environment:
-               - SONARQUBE_JDBC_USERNAME=sonarqube
-               - SONARQUBE_JDBC_PASSWORD=sonarpass
-               - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonarqube
-        volumes:
+         image: sonarqube:community
+         container_name: sonarqube
+         depends_on:
+           - db
+         environment:
+           SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+           SONAR_JDBC_USERNAME: sonar
+           SONAR_JDBC_PASSWORD: sonar
+         networks:
+            - mynetwork
+         volumes:
             - sonarqube_data:/opt/sonarqube/data
             - sonarqube_extensions:/opt/sonarqube/extensions
             - sonarqube_logs:/opt/sonarqube/logs
-        ports:
+         ports:
             - "9000:9000"
-            - "9092:9092"
 
   db:
-      image: postgres:13
-      container_name: postgresql
-      environment:
+        image: postgres:13
+        container_name: postgresql
+        environment:
           POSTGRES_USER: sonar
           POSTGRES_PASSWORD: sonar
           POSTGRES_DB: sonar
-      volumes:
+        volumes:
            - postgresql:/var/lib/postgresql
            - postgresql_data:/var/lib/postgresql/data
-
-  nexus:
-    image: sonatype/nexus3:latest
-    container_name: nexus
-    user: root
-    ports:
-      - "8081:8081"
-    volumes:
-      - nexus-data:/nexus-data
-
-    
-   
-
+        networks:
+          - mynetwork
 volumes:
-  jenkins-data: {}
-  jenkins-home: {}
-  nexus-data: {}
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_logs:
-  postgresql:
-  postgresql_data:
+    jenkins-data: {}
+    jenkins-home: {}
+    sonarqube_data:
+    sonarqube_extensions:
+    sonarqube_logs:
+    postgresql:
+    postgresql_data: {}
+
+networks:
+    mynetwork:
+      driver: bridge
