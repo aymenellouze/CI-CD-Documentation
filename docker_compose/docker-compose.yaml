@@ -10,6 +10,7 @@ services:
       - 50000:50000
     networks:
       - mynetwork
+           
     volumes:
       - jenkins-data:/var/jenkins_home
       - jenkins-home:/home
@@ -34,9 +35,13 @@ services:
       ports:
         - 8088:8081
         - 8085:8085
+      networks:
+           mynetwork :
+               ipv4_address: 172.25.0.2
       volumes:
         - /home/nexus:/nexus-data
       restart: always
+
 
   sonarqube:
          image: sonarqube:community
@@ -80,3 +85,6 @@ volumes:
 networks:
     mynetwork:
       driver: bridge
+      ipam:
+       config:
+        -  subnet: 172.25.0.0/24
