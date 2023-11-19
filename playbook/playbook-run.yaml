@@ -5,6 +5,6 @@
   tasks:
 
     - name: Run the Docker container
-      command: docker run -d -p 80:80 aymenellouzedocker/production:imagedocker
+      command: sudo docker run -d -p 80:80 aymenellouzedocker/production:imagedocker
       become_user: azureuser  # Replace with your Azure VM username
       become: yes
